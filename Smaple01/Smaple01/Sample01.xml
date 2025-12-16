@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Smaple01</name>
+    </assembly>
+    <members>
+        <member name="M:Smaple01.Controllers.CitiesController.GetCity(System.Int32,System.Boolean)">
+            <summary>
+            Get a city by an id
+            </summary>
+            <param name="id">The Id of the city to get</param>
+            <param name="incloudPointsOfInterest">Whether or not to include the point of interests</param>
+            <returns>a city with or without points of interests</returns>
+        </member>
+        <member name="T:Smaple01.Migrations.cityinfoinitializemigration">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.cityinfoinitializemigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.cityinfoinitializemigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.cityinfoinitializemigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Smaple01.Migrations.addDescriptiontoPointofInterest">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.addDescriptiontoPointofInterest.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.addDescriptiontoPointofInterest.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.addDescriptiontoPointofInterest.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Smaple01.Migrations.dataseed">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.dataseed.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.dataseed.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Smaple01.Migrations.dataseed.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Smaple01.Models.CityWithOutPointsOfInterestDto">
+            <summary>
+            a city without points of interest
+            </summary>
+        </member>
+        <member name="P:Smaple01.Models.CityWithOutPointsOfInterestDto.Id">
+            <summary>
+            The Id if the city
+            </summary>
+        </member>
+        <member name="P:Smaple01.Models.CityWithOutPointsOfInterestDto.Name">
+            <summary>
+            The Name if the city
+            </summary>
+        </member>
+        <member name="P:Smaple01.Models.CityWithOutPointsOfInterestDto.Description">
+            <summary>
+            The Description if the city
+            </summary>
+        </member>
+    </members>
+</doc>
