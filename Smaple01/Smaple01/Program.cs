@@ -2,12 +2,16 @@ using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Smaple01;
+using Smaple01.Application.Repositories;
 using Smaple01.DBContexts;
-using Smaple01.Services;
+using Smaple01.Services.MailService;
+using Smaple01.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 
 Log.Logger = new LoggerConfiguration()
@@ -51,10 +55,10 @@ dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDbCo
 );
 
 builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<IPointOfInterestRepository, PointOfInterestRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
@@ -83,40 +87,34 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-builder.Services.AddApiVersioning(setupAction =>
+builder.Services.AddApiVersioning(options =>
 {
-    setupAction.ReportApiVersions = true;
-    setupAction.AssumeDefaultVersionWhenUnspecified = true;
-    setupAction.DefaultApiVersion = new ApiVersion(1, 0);
-}).AddMvc();
-//.AddApiExplorer(setupAction =>
-//{
-//    setupAction.SubstituteApiVersionInUrl = true;
-//});
-
-//var apiVersionDescriptionProvider = builder.Services.BuildServiceProvider()
-//    .GetRequiredService<IApiVersionDescriptionProvider>();
-
-builder.Services.AddSwaggerGen(setupAction =>
+    options.ReportApiVersions = true;
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+})
+.AddMvc()
+.AddApiExplorer(options =>
 {
-    //foreach (var description in
-    //apiVersionDescriptionProvider.ApiVersionDescriptions)
-    //{
-    //    setupAction.SwaggerDoc(
-    //        $"{description.GroupName}",
-    //        new()
-    //        {
-    //            Title = "City Info API",
-    //            Version = description.ApiVersion.ToString(),
-    //            Description = "Through this API you can access cities and their points of interest."
-    //        });
-    //}
-
-    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
-
-    setupAction.IncludeXmlComments(xmlCommentsFullPath);
+    options.SubstituteApiVersionInUrl = true;
+    options.GroupNameFormat = "'v'VVV";
 });
+
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlCommentsFile =
+        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+    var xmlCommentsFullPath =
+        Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+    options.IncludeXmlComments(xmlCommentsFullPath);
+});
+
+builder.Services.AddTransient<
+    IConfigureOptions<SwaggerGenOptions>,
+    ConfigureSwaggerOptions>();
+
 
 var app = builder.Build();
 
@@ -128,18 +126,24 @@ if (app.Environment.IsDevelopment())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    //app.UseSwaggerUI(setupAction =>
-    //{
-    //    var descriptions = app.DescribeApiVersions();
-    //    foreach (var description in descriptions)
-    //    {
-    //        setupAction.SwaggerEndpoint(
-    //            $"/swagger/{description.GroupName}/swagger.json",
-    //            description.GroupName.ToUpperInvariant());
-    //    }
-    //});
-    app.UseSwaggerUI();
+
+    app.UseSwaggerUI(options =>
+    {
+        options.RoutePrefix = "swagger";
+
+        var provider = app.Services
+            .GetRequiredService<IApiVersionDescriptionProvider>();
+
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint(
+                $"/swagger/{description.GroupName}/swagger.json",
+                description.GroupName.ToUpperInvariant());
+        }
+    });
+
 }
+
 
 app.UseHttpsRedirection();
 

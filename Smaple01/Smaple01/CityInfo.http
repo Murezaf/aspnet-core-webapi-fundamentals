@@ -1,0 +1,32 @@
+@schema = https
+@hostname = localhost
+@port = 7149
+
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+
+###
+
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+Accept:application/xml
+###
+POST {{schema}}://{{hostname}}:{{port}}/api/v2/cities/1/pointsofinterest
+Accept:application/json
+Content-Type:application/json
+
+{
+  "name":"name testing",
+  "description":"description testing"
+}
+
+###
+POST {{schema}}://{{hostname}}:{{port}}/api/authentication/authenticate
+Content-Type:application/json
+
+{
+  "username":"ali",
+  "password":"asadi"
+}
+
+###
+GET {{schema}}://{{hostname}}:{{port}}/api/v2/cities
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW5fbmFtZSI6IkFsaSIsImZhbWlseV9uYW1lIjoiQWtiYXJpIiwiY2l0eSI6Ik5ld1lvcmsiLCJuYmYiOjE3NjU4OTIwMDUsImV4cCI6MTc2NTg5NTYwNSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE0OSIsImF1ZCI6ImNpdHlpbmZvYXBpIn0.yFegtwO981HoEMfiZI9Jf3WQemF6PLL1XW_TktPCFD8

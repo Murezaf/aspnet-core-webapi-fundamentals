@@ -1,6 +1,7 @@
-﻿using Smaple01.Entities;
+﻿using Smaple01.Application.Helpers;
+using Smaple01.Entities;
 
-namespace Smaple01.Services
+namespace Smaple01.Application.Repositories
 {
     public interface ICityInfoRepository
     {

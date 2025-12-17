@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Smaple01.Application.Helpers;
 using Smaple01.DBContexts;
 using Smaple01.Entities;
 
-namespace Smaple01.Services
+namespace Smaple01.Application.Repositories
 {
     public class CityInfoRepository : ICityInfoRepository
     {
@@ -47,7 +48,7 @@ namespace Smaple01.Services
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await _context.SaveChangesAsync() >= 0);
+            return await _context.SaveChangesAsync() >= 0;
         }
 
         public void DeletePointOfInterests(PointOfInterest pointOfInterest)
@@ -135,7 +136,7 @@ namespace Smaple01.Services
             {
                 searchQuery = searchQuery.Trim();
                 collection = collection.Where
-                    (c => c.Name.Contains(searchQuery) || (c.Description != null && c.Description.Contains(searchQuery)));
+                    (c => c.Name.Contains(searchQuery) || c.Description != null && c.Description.Contains(searchQuery));
             }
 
             int totalItems = await collection.CountAsync();

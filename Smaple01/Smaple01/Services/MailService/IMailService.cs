@@ -1,4 +1,4 @@
-﻿namespace Smaple01.Services
+﻿namespace Smaple01.Services.MailService
 {
     public interface IMailService
     {
