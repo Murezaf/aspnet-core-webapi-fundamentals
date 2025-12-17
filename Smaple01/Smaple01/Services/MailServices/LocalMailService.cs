@@ -1,11 +1,11 @@
-﻿namespace Smaple01.Services.MailService
+﻿namespace Smaple01.Services.MailServices
 {
-    public class CloudMailService : IMailService
+    public class LocalMailService : IMailService
     {
         private string _mailTo = string.Empty;
         private string _mailFrom = string.Empty;
 
-        public CloudMailService(IConfiguration configuration)
+        public LocalMailService(IConfiguration configuration)
         {
             _mailTo = configuration["mailSettings:mailToAddress"];
             _mailFrom = configuration["mailSettings:mailFromAddress"];
@@ -13,7 +13,7 @@
 
         public void Send(string subject, string message)
         {
-            Console.WriteLine($"Mail send from {_mailFrom} to {_mailTo} with {nameof(CloudMailService)}");
+            Console.WriteLine($"Mail send from {_mailFrom} to {_mailTo} with {nameof(LocalMailService)}");
             Console.WriteLine($"Subject: {subject}");
             Console.WriteLine($"Message: {message}");
         }

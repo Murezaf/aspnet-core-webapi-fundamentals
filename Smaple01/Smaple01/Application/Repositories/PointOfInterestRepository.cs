@@ -10,7 +10,7 @@ namespace Smaple01.Application.Repositories
         {
         }
 
-        public async Task AddPointOfInterestAsync(PointOfInterest pointOfInterest)
+        public void AddPointOfInterest(PointOfInterest pointOfInterest)
         {
             _context.pointOfInterests.Add(pointOfInterest);
 

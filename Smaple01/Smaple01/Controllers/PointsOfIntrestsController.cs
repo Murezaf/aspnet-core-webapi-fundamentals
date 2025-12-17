@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Smaple01.Application.Repositories;
 using Smaple01.Entities;
 using Smaple01.Models;
-using Smaple01.Services.MailService;
+using Smaple01.Services.MailServices;
 
 namespace Smaple01.Controllers
 {

@@ -9,7 +9,9 @@ using Serilog;
 using Smaple01;
 using Smaple01.Application.Repositories;
 using Smaple01.DBContexts;
-using Smaple01.Services.MailService;
+using Smaple01.Services.CityServices;
+using Smaple01.Services.MailServices;
+using Smaple01.Services.PointOfInterestServices;
 using Smaple01.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -57,6 +59,8 @@ dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDbCo
 builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IPointOfInterestRepository, PointOfInterestRepository>();
+builder.Services.AddScoped<IPointOfInterestService, PointOfInterestService>();
+builder.Services.AddScoped<ICityService, CityService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

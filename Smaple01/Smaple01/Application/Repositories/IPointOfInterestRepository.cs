@@ -6,7 +6,7 @@ namespace Smaple01.Application.Repositories
     {
         Task<IEnumerable<PointOfInterest>> GetPointsOfInterestsAsync(int cityId);
         Task<PointOfInterest?> GetPointOfInterestAsync(int cityId, int pointOfInterestId);
-        Task AddPointOfInterestAsync(PointOfInterest pointOfInterest);
+        void AddPointOfInterest(PointOfInterest pointOfInterest);
         void DeletePointOfInterests(PointOfInterest pointOfInterest);
     }
 }
