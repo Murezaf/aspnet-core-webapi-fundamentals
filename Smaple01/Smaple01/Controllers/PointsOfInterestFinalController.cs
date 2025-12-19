@@ -27,85 +27,85 @@ namespace Smaple01.Controllers
             _pointOfInterestService = pointOfInterestService ?? throw new ArgumentNullException(nameof(pointOfInterestService));
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PointOfInterestDto>>> GetPointsofInterest(int cityId)
-        {
-            IEnumerable<PointOfInterestDto> result = await _pointOfInterestService.GetPointsOfInterestAsync(cityId);
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<PointOfInterestDto>>> GetPointsofInterest(int cityId)
+        //{
+        //    IEnumerable<PointOfInterestDto> result = await _pointOfInterestService.GetPointsOfInterestAsync(cityId);
 
-            if (result == null)
-                return NotFound();
+        //    if (result == null)
+        //        return NotFound();
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
-        [HttpGet("{PointofinterestId}", Name = "GetPointOfInterest")]
-        public async Task<ActionResult<PointOfInterestDto>> GetPointOfInterest(int cityId, int PointofinterestId)
-        {
-            PointOfInterestDto pointOfInterestDto = await _pointOfInterestService.GetPointOfInterestAsync(cityId, PointofinterestId);
+        //[HttpGet("{PointofinterestId}", Name = "GetPointOfInterest")]
+        //public async Task<ActionResult<PointOfInterestDto>> GetPointOfInterest(int cityId, int PointofinterestId)
+        //{
+        //    PointOfInterestDto pointOfInterestDto = await _pointOfInterestService.GetPointOfInterestAsync(cityId, PointofinterestId);
 
-            if (pointOfInterestDto == null)
-                return NotFound();
+        //    if (pointOfInterestDto == null)
+        //        return NotFound();
 
-            return Ok(pointOfInterestDto);
-        }
+        //    return Ok(pointOfInterestDto);
+        //}
 
-        [HttpPost]
-        public async Task<ActionResult<PointOfInterestDto>> CreatePointOfInterest(int cityId, PointOfInterestCreationDto pointOfInterestCreation)
-        {
-            PointOfInterestDto pointOfInterestDto = await _pointOfInterestService.CreatePointOfInterestAsync(cityId, pointOfInterestCreation);
+        //[HttpPost]
+        //public async Task<ActionResult<PointOfInterestDto>> CreatePointOfInterest(int cityId, PointOfInterestCreationDto pointOfInterestCreation)
+        //{
+        //    PointOfInterestDto pointOfInterestDto = await _pointOfInterestService.CreatePointOfInterestAsync(cityId, pointOfInterestCreation);
 
-            if (pointOfInterestDto == null)
-                return NotFound();
+        //    if (pointOfInterestDto == null)
+        //        return NotFound();
 
-            return CreatedAtRoute("GetPointOfInterest",
-                new { cityId = cityId, PointofinterestId = pointOfInterestDto.Id },
-                pointOfInterestDto
-                );
-        }
+        //    return CreatedAtRoute("GetPointOfInterest",
+        //        new { cityId = cityId, PointofinterestId = pointOfInterestDto.Id },
+        //        pointOfInterestDto
+        //        );
+        //}
 
-        [HttpPut("{PointofinterestId}")]
-        public async Task<ActionResult> UpdatePointOfInterest(int cityId, int PointofinterestId,
-            PointsOfInterestUpdateDto pointsOfInterestUpdateDto)
-        {
-            if (!await _pointOfInterestService.FullUpdatePointOfInterestAsync(cityId, PointofinterestId, pointsOfInterestUpdateDto))
-                return NotFound();
+        //[HttpPut("{PointofinterestId}")]
+        //public async Task<ActionResult> UpdatePointOfInterest(int cityId, int PointofinterestId,
+        //    PointsOfInterestUpdateDto pointsOfInterestUpdateDto)
+        //{
+        //    if (!await _pointOfInterestService.FullUpdatePointOfInterestAsync(cityId, PointofinterestId, pointsOfInterestUpdateDto))
+        //        return NotFound();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        [HttpPatch("{PointofinterestId}")]
-        public async Task<ActionResult> PartiallyUpdatePointOfInterest(int cityId, int PointofinterestId,
-            JsonPatchDocument<PointsOfInterestUpdateDto> patchDocument)
-        {
-            if (patchDocument == null)
-                return BadRequest();
+        //[HttpPatch("{PointofinterestId}")]
+        //public async Task<ActionResult> PartiallyUpdatePointOfInterest(int cityId, int PointofinterestId,
+        //    JsonPatchDocument<PointsOfInterestUpdateDto> patchDocument)
+        //{
+        //    if (patchDocument == null)
+        //        return BadRequest();
 
-            PointsOfInterestUpdateDto pointsOfInterestUpdateDto = await _pointOfInterestService.ConvertPointOfInterestToPatchable(cityId, PointofinterestId);
+        //    PointsOfInterestUpdateDto pointsOfInterestUpdateDto = await _pointOfInterestService.ConvertPointOfInterestToPatchable(cityId, PointofinterestId);
                 
-            if (pointsOfInterestUpdateDto == null)
-            return NotFound();
+        //    if (pointsOfInterestUpdateDto == null)
+        //    return NotFound();
 
-            patchDocument.ApplyTo(pointsOfInterestUpdateDto, ModelState);
+        //    patchDocument.ApplyTo(pointsOfInterestUpdateDto, ModelState);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            if (!TryValidateModel(pointsOfInterestUpdateDto))
-                return BadRequest(ModelState);
+        //    if (!TryValidateModel(pointsOfInterestUpdateDto))
+        //        return BadRequest(ModelState);
 
-            await _pointOfInterestService.ApplyPatchedToDatabase(cityId, PointofinterestId, pointsOfInterestUpdateDto);
+        //    await _pointOfInterestService.ApplyPatchedToDatabase(cityId, PointofinterestId, pointsOfInterestUpdateDto);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        [HttpDelete("{PointofinterestId}")]
-        public async Task<ActionResult> DeletePointOfInterest(int cityId, int PointofinterestId)
-        {
-            if (!await _pointOfInterestService.DeletePointOfInterestAsync(cityId, PointofinterestId))
-                return NotFound();
+        //[HttpDelete("{PointofinterestId}")]
+        //public async Task<ActionResult> DeletePointOfInterest(int cityId, int PointofinterestId)
+        //{
+        //    if (!await _pointOfInterestService.DeletePointOfInterestAsync(cityId, PointofinterestId))
+        //        return NotFound();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
     }
 
 

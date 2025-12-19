@@ -62,6 +62,12 @@ builder.Services.AddScoped<IPointOfInterestRepository, PointOfInterestRepository
 builder.Services.AddScoped<IPointOfInterestService, PointOfInterestService>();
 builder.Services.AddScoped<ICityService, CityService>();
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
+
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
